@@ -1,0 +1,728 @@
+definitions:
+  domain.Dentist:
+    properties:
+      enrollment:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+    type: object
+  domain.Patient:
+    properties:
+      dateup:
+        type: string
+      dni:
+        type: string
+      domicile:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+    required:
+    - dateup
+    - dni
+    type: object
+  dto.TurnInsert:
+    properties:
+      dateup:
+        type: string
+      dentistid:
+        type: integer
+      description:
+        type: string
+      hour:
+        type: string
+      patientid:
+        type: integer
+    required:
+    - dateup
+    - dentistid
+    - hour
+    - patientid
+    type: object
+  dto.TurnPost:
+    properties:
+      dateup:
+        type: string
+      description:
+        type: string
+      dni:
+        type: string
+      enrollment:
+        type: string
+      hour:
+        type: string
+    type: object
+  web.response:
+    properties:
+      data: {}
+    type: object
+info:
+  contact:
+    name: API Support agvanetta.
+    url: https://github.com/agvanetta
+  description: This API for Control a Dental Office.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/agvanetta
+  title: Api Dentist Consultant
+  version: "1.0"
+paths:
+  /dentists:
+    get:
+      consumes:
+      - application/json
+      description: Get Dentist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get All Dentist
+      tags:
+      - Dentist
+    post:
+      consumes:
+      - application/json
+      description: Post a Dentist
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Dentist to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Post Dentist
+      tags:
+      - Dentist
+  /dentists/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Dentist
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Dentist ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Delete Dentist
+      tags:
+      - Dentist
+    get:
+      consumes:
+      - application/json
+      description: Get Dentist
+      parameters:
+      - description: Dentist ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get Dentist by ID
+      tags:
+      - Dentist
+    patch:
+      consumes:
+      - application/json
+      description: Patch a Dentist
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Dentist to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
+      - description: Dentist ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Patch Dentist
+      tags:
+      - Dentist
+    put:
+      consumes:
+      - application/json
+      description: Put a Dentist
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Dentist to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
+      - description: Dentist ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Put Dentist
+      tags:
+      - Dentist
+  /patients:
+    get:
+      consumes:
+      - application/json
+      description: Get Patient
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get All Patient
+      tags:
+      - Patient
+    post:
+      consumes:
+      - application/json
+      description: Post a Patient
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Patient to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Post Patient
+      tags:
+      - Patient
+  /patients/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Patient
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Delete Patient
+      tags:
+      - Patient
+    get:
+      consumes:
+      - application/json
+      description: Get Patient
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get Patient by ID
+      tags:
+      - Patient
+    patch:
+      consumes:
+      - application/json
+      description: Patch a Patient
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Patient to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Patch Patient
+      tags:
+      - Patient
+    put:
+      consumes:
+      - application/json
+      description: Put a Patient
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Patient to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Put Patient
+      tags:
+      - Patient
+  /turns:
+    get:
+      consumes:
+      - application/json
+      description: Get Turns
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get All Turns
+      tags:
+      - Turns
+    post:
+      consumes:
+      - application/json
+      description: Post a Turns
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Turns to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TurnInsert'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Post Turns
+      tags:
+      - Turns
+  /turns/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Turns
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Turns ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Delete Turns
+      tags:
+      - Turns
+    get:
+      consumes:
+      - application/json
+      description: Get Turns
+      parameters:
+      - description: Turns ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get Turns by ID
+      tags:
+      - Turns
+    patch:
+      consumes:
+      - application/json
+      description: Patch a Turns
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Turns to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TurnInsert'
+      - description: Turns ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Patch Turns
+      tags:
+      - Turns
+    put:
+      consumes:
+      - application/json
+      description: Put a Turns
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Turns to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TurnInsert'
+      - description: Turns ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Put Turns
+      tags:
+      - Turns
+  /turns/dni:
+    get:
+      consumes:
+      - application/json
+      description: Get Turns
+      parameters:
+      - description: DNI
+        in: query
+        name: dni
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Get Turns by ID
+      tags:
+      - Turns
+  /turns/post:
+    post:
+      consumes:
+      - application/json
+      description: Post a Turn
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Turns to data
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TurnPost'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: PostWithEnrollmentAndDNI Turns
+      tags:
+      - Turns
+swagger: "2.0"
